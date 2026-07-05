@@ -1,8 +1,8 @@
-import { useState } from 'react';
+
 import './Hero.css';
 
-function Hero() {
-    const [searchInput, setSearchInput] = useState('');
+function Hero({ searchInput, setSearchInput, fetchMovies }) {
+ 
 
     function printInput(e) {
         setSearchInput(e.target.value)
@@ -10,7 +10,12 @@ function Hero() {
     }
 
     function handleKeyDown(e) {
-        if (e.key === "Esc" || e.key === "Backspace") {
+        if(e.key === "Enter") {
+            fetchMovies()
+            
+        }
+
+        if (e.key === "Esc" ) {
            setSearchInput('')
         }
     }
