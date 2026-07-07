@@ -100,7 +100,8 @@
 }
 
 .hero__genre-box {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 12px;
 }
 
@@ -108,4 +109,10 @@
     font-size: 0.9rem;
     border:  1px solid #0d0d0d;
     padding: 4px 12px;
+}
+
+@media (max-width: 720px) {
+    .hero__genre-box {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }

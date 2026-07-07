@@ -24,16 +24,23 @@ const GENRES = {
 };
 
 
-function MovieList( { movies } ) {
+function MovieList( { movies, loading } ) {
     return (
         <div className="movie-list">
                 {console.log(movies)}
+
             <div className="movie-list__header">
                 <h2>Movie List</h2>
             </div>
                 
             <div className="movie-list__container">
                 {movies.map(movie => {
+
+                    if(loading) {
+                        return (
+                            <p>Loading</p>
+                        )
+                    }
 
                     // Map first genre ID to name
                     const genreName = movie.genre_ids?.[0] ? GENRES[movie.genre_ids[0]] : 'N/A';
@@ -42,6 +49,7 @@ function MovieList( { movies } ) {
                         <div key={movie.id} className="movie-list__card">
                             <div className="movie-list__card-image">
                                 <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
+                                <small className='movie__rating'>{(movie.vote_average > 1 ? movie.vote_average : 1).toFixed(1)}</small>
                             </div>
                             
                             <div className="movie-list__card-info">

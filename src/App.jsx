@@ -45,7 +45,7 @@ function App() {
       }
       />
 
-      <MovieList movies={movies} />
+      <MovieList movies={movies} loading={loading} />
     </>
   )
 }
