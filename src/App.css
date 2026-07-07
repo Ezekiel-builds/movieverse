@@ -1,0 +1,47 @@
+.loading__texts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+    font-size: 1.8rem;
+}
+
+.loading__header {
+    color: #0d0d0d;
+    font-size: 18px;
+    margin: 32px;
+}
+
+.loaders {
+    display: flex;
+    gap: 6px;
+}
+
+.loaders .loader__el {
+    width: 8px;
+    height: 8px;
+    background-color: #1a6bff;
+    border-radius: 50%;
+    animation: bounce 0.6s infinite alternate;
+}
+
+.loaders .loader__el:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loaders .loader__el:nth-child(3) {
+    animation-delay: 0.4s;
+} 
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+
+    to {
+        transform: translateY(-8px);
+        opacity: 1;
+    }
+}

@@ -12,6 +12,7 @@ function App() {
 
   async function fetchMovies() {
     setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 4000));
 
     try {
       const response = await fetch(
@@ -45,7 +46,19 @@ function App() {
       }
       />
 
-      <MovieList movies={movies} loading={loading} />
+       {loading ? (
+         <div className='loading__texts'>
+            <h4 className='loading__header'>Finding your films</h4>
+
+            <div className='loaders'>
+              <div className='loader__el'></div>
+              <div className='loader__el'></div>
+              <div className='loader__el'></div>
+            </div>
+         </div>
+    ) : (
+      <MovieList movies={movies} />
+    )}
     </>
   )
 }

@@ -112,6 +112,14 @@
 }
 
 @media (max-width: 720px) {
+    .hero {
+        height: 100vh;
+    }
+
+    .hero__subtext {
+        width: 100%;
+    }
+
     .hero__genre-box {
         grid-template-columns: repeat(3, 1fr);
     }

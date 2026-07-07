@@ -24,7 +24,7 @@ const GENRES = {
 };
 
 
-function MovieList( { movies, loading } ) {
+function MovieList( { movies } ) {
     return (
         <div className="movie-list">
                 {console.log(movies)}
@@ -35,12 +35,6 @@ function MovieList( { movies, loading } ) {
                 
             <div className="movie-list__container">
                 {movies.map(movie => {
-
-                    if(loading) {
-                        return (
-                            <p>Loading</p>
-                        )
-                    }
 
                     // Map first genre ID to name
                     const genreName = movie.genre_ids?.[0] ? GENRES[movie.genre_ids[0]] : 'N/A';
