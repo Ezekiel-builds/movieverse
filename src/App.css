@@ -34,6 +34,14 @@
     animation-delay: 0.4s;
 } 
 
+.error__message {
+    text-align: center;
+    font-size: 2.6rem;
+    margin-top: 32px;
+
+    color: #0d0d0d;
+}
+
 @keyframes bounce {
     from {
         transform: translateY(0);

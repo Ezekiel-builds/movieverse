@@ -24,7 +24,7 @@ const GENRES = {
 };
 
 
-function MovieList( { movies } ) {
+function MovieList( { movies, toggleFavorite } ) {
     return (
         <div className="movie-list">
                 {console.log(movies)}
@@ -38,12 +38,20 @@ function MovieList( { movies } ) {
 
                     // Map first genre ID to name
                     const genreName = movie.genre_ids?.[0] ? GENRES[movie.genre_ids[0]] : 'N/A';
+                    const isFavorite = true;
                             
                     return (
                         <div key={movie.id} className="movie-list__card">
                             <div className="movie-list__card-image">
                                 <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
                                 <small className='movie__rating'>{(movie.vote_average > 1 ? movie.vote_average : 1).toFixed(1)}</small>
+
+                                <button onClick={toggleFavorite}>
+                                    { isFavorite ? 
+                                    (<i className="fi fi-ts-heart favorite__icon"></i>) : 
+                                    (<i className="fi fi-ss-heart favorite__icon-outlined"></i>)}
+                                </button>
+                                
                             </div>
                             
                             <div className="movie-list__card-info">

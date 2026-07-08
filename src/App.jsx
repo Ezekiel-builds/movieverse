@@ -6,12 +6,19 @@ import './App.css'
 function App() {
   const [searchInput, setSearchInput] = useState('');
   const [movies, setMovies] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
   const API_KEY = "e02fb12e797d1b4b49ecb2fff4635bac";
 
+  function toggleFavorite() {
+    isFavorite = false;
+  }
+
   async function fetchMovies() {
     setLoading(true);
+    setHasSearched(true);
     await new Promise(resolve => setTimeout(resolve, 4000));
 
     try {
@@ -56,9 +63,18 @@ function App() {
               <div className='loader__el'></div>
             </div>
          </div>
-    ) : (
-      <MovieList movies={movies} />
+    ) : hasSearched && movies.length === 0? 
+    (<h4 className='error__message'>No matches in the catalog</h4>): 
+
+    (
+      <MovieList movies={movies} 
+      favorites={favorites} 
+      setFavorites={setFavorites} 
+      toggleFavorite={toggleFavorite}
+      />
     )}
+
+    
     </>
   )
 }
