@@ -1,5 +1,6 @@
 import Hero from './components/Hero';
 import MovieList from './components/MovieList';
+import Favorites from './components/Favorites';
 import { useState } from 'react';
 import './App.css'
 
@@ -12,8 +13,22 @@ function App() {
 
   const API_KEY = "e02fb12e797d1b4b49ecb2fff4635bac";
 
-  function toggleFavorite() {
-    isFavorite = false;
+  function toggleFavorite(movie) {
+    const alreadyFavorite = favorites.some((
+      (favorite) => favorite.id === movie.id
+    ));
+  
+    if (alreadyFavorite) {
+      setFavorites(
+        favorites.filter(
+          (favorite) => favorite.id !== movie.id
+        )
+      );
+    } else {
+      setFavorites([...favorites, movie])
+    }
+
+    console.log(favorites)
   }
 
   async function fetchMovies() {
@@ -71,10 +86,11 @@ function App() {
       favorites={favorites} 
       setFavorites={setFavorites} 
       toggleFavorite={toggleFavorite}
+      favorites={favorites}
       />
     )}
 
-    
+    <Favorites favorites={favorites}/>
     </>
   )
 }
