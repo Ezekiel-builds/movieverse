@@ -69,3 +69,9 @@
     font-size: 0.8rem;
     letter-spacing: 2px;
 }
+
+@media (max-width: 720px) {
+    .favorites__cards {
+        grid-template-columns: 1fr;
+    }
+}

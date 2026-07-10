@@ -117,6 +117,7 @@
     .hero {
         width: 100%;
         height: 100vh;
+        line-height: 1.6em;
     }
 
     .hero__header {
@@ -128,6 +129,8 @@
     }
 
     .hero__genre-box {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        
     }
 }
+
