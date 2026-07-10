@@ -9,6 +9,10 @@ function Hero({ searchInput, setSearchInput, fetchMovies }) {
         console.log(searchInput);
     }
 
+    function searchMovie() {
+        fetchMovies();
+    }
+
     function handleKeyDown(e) {
         if(e.key === "Enter") {
             fetchMovies()
@@ -41,7 +45,7 @@ function Hero({ searchInput, setSearchInput, fetchMovies }) {
                 value={searchInput}
                 />
                 
-                <button className="hero__btn">Search</button>
+                <button className="hero__btn" onClick={searchMovie}>Search</button>
             </div>
 
             <div className="hero__genre">

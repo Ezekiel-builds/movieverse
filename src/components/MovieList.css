@@ -157,3 +157,9 @@
         place-content: center;
     }
 }
+
+@media (max-width: 420px) {
+    .movie-list__container {
+        margin: 0 auto;
+    }
+}
