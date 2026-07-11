@@ -1,7 +1,7 @@
 import Hero from './components/Hero';
 import MovieList from './components/MovieList';
 import Favorites from './components/Favorites';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css'
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
   const [hasSearched, setHasSearched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const [favoritesLoaded, setFavoritesLoaded] = useState(false);
 
   const API_KEY = "e02fb12e797d1b4b49ecb2fff4635bac";
 
@@ -27,9 +28,24 @@ function App() {
     } else {
       setFavorites([...favorites, movie])
     }
+  } 
 
-    console.log(favorites)
+ useEffect(() => {
+  const storedFavorites = localStorage.getItem("favorites");
+  console.log("Stored favorites:", storedFavorites);
+  if (storedFavorites) {
+    setFavorites(JSON.parse(storedFavorites));
   }
+
+  setFavoritesLoaded(true)
+}, []);
+
+  useEffect(() => {
+    console.log("saving favorites:", favorites)
+    if (!favoritesLoaded) return;
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites, favoritesLoaded])
 
   async function fetchMovies() {
     setLoading(true);
@@ -83,7 +99,6 @@ function App() {
 
     (
       <MovieList movies={movies} 
-      favorites={favorites} 
       setFavorites={setFavorites} 
       toggleFavorite={toggleFavorite}
       favorites={favorites}

@@ -32,18 +32,18 @@ function Favorites({ favorites }) {
             
             ('favorites__header')}
             >
-                <small><i class="fi fi-rs-heart"></i> YOUR COLLECTION</small>
+                <small><i className="fi fi-rs-heart"></i> YOUR COLLECTION</small>
                 <h3>Favorites</h3>
             </div>
 
-            <div className="favorites__cards" key={favorites.key}>
+            <div className="favorites__cards">
                
                 {favorites.map(favorite => {
                  const genreName = favorite.genre_ids?.[0] ? GENRES[favorite.genre_ids[0]] : 'N/A';
 
 
                     return (
-                        <div className="favorites__card">
+                        <div className="favorites__card" key={favorite.id}>
                             <div className="favorites__image-card">
                                 <img src={`https://image.tmdb.org/t/p/w500/${favorite.poster_path}`} alt={favorite.title} />
                                 <small className='movie__rating'>{(favorite.vote_average > 1 ? favorite.vote_average : 1).toFixed(1)}</small>

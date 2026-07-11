@@ -25,6 +25,7 @@ const GENRES = {
 
 
 function MovieList( { movies, toggleFavorite, favorites } ) {
+    
     return (
         <div className="movie-list">
                
