@@ -1,0 +1,59 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 20px;
+    color: #8a8880;
+}
+
+.header__meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__home-link {
+    text-decoration: none;
+}
+
+.header__meta .header__logo {
+    color: #0d0d0d;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.header__nav-links {
+    display: flex;
+    gap: 12px;
+}
+
+.header__nav-links .header__nav-link {
+    color: #8a8880;
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.header__nav-links .header__nav-link:hover {
+    color: rgb(174, 170, 156);
+}
+
+.header__version {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header__version .header__version-divider {
+    width: 2px;
+    height: 16px;
+    background-color: #8a8880;
+}
+
+.sign__up-link {
+    text-decoration: none;
+    color: #0d0d0d;
+    border: 1px solid #c4c0b0;
+    padding: 8px 12px;
+
+    font-size: 0.8rem;
+}

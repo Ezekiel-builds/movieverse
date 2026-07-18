@@ -1,11 +1,12 @@
-import Hero from './components/Hero';
-import MovieList from './components/MovieList';
-import Favorites from './components/Favorites';
-import { useState, useEffect } from 'react';
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./Pages/HomePage";
+import FavoritesPage from "./Pages/FavoritesPage";
+import MovieDetails from "./Pages/MovieDetails";
+import { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
   const [movies, setMovies] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -15,10 +16,10 @@ function App() {
   const API_KEY = "e02fb12e797d1b4b49ecb2fff4635bac";
 
   function toggleFavorite(movie) {
-    const alreadyFavorite = favorites.some((
-      (favorite) => favorite.id === movie.id
-    ));
-  
+    const alreadyFavorite = favorites.some(
+      (favorite) => favorite.id === movie.id,
+    );
+
     if (alreadyFavorite) {
       setFavorites(
         favorites.filter(
@@ -26,88 +27,81 @@ function App() {
         )
       );
     } else {
-      setFavorites([...favorites, movie])
+      setFavorites([...favorites, movie]);
     }
-  } 
-
- useEffect(() => {
-  const storedFavorites = localStorage.getItem("favorites");
-  console.log("Stored favorites:", storedFavorites);
-  if (storedFavorites) {
-    setFavorites(JSON.parse(storedFavorites));
   }
 
-  setFavoritesLoaded(true)
-}, []);
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    console.log("Stored favorites:", storedFavorites);
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+
+    setFavoritesLoaded(true);
+  }, []);
 
   useEffect(() => {
-    console.log("saving favorites:", favorites)
+    console.log("saving favorites:", favorites);
     if (!favoritesLoaded) return;
 
     localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites, favoritesLoaded])
+  }, [favorites, favoritesLoaded]);
 
   async function fetchMovies() {
     setLoading(true);
     setHasSearched(true);
-    await new Promise(resolve => setTimeout(resolve, 4000));
+    await new Promise((resolve) => setTimeout(resolve, 4000));
 
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchInput}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchInput}`,
       );
 
       const data = await response.json();
-/* 
+      /* 
       console.log(data);
  */
       setMovies(data.results);
-
-    } catch(error) {
-      return (
-        <p>Error fetching movies {error.message}</p>
-      )
-
+    } catch (error) {
+      return <p>Error fetching movies {error.message}</p>;
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  } 
-    
+  }
 
   return (
     <>
-      <Hero 
-      searchInput={searchInput} 
-      setSearchInput={setSearchInput} 
-      fetchMovies={fetchMovies
+      <Routes>
 
-      }
+       <Route
+   path="/"
+   element={
+      <HomePage
+         searchInput={searchInput}
+         setSearchInput={setSearchInput}
+         fetchMovies={fetchMovies}
+         loading={loading}
+         hasSearched={hasSearched}
+         movies={movies}
+         favorites={favorites}
+         toggleFavorite={toggleFavorite}
+      />
+   }
+/>
+
+      <Route
+         path="/favorites"
+         element={<FavoritesPage favorites={favorites} />}
       />
 
-       {loading ? (
-         <div className='loading__texts'>
-            <h4 className='loading__header'>Finding your films</h4>
-
-            <div className='loaders'>
-              <div className='loader__el'></div>
-              <div className='loader__el'></div>
-              <div className='loader__el'></div>
-            </div>
-         </div>
-    ) : hasSearched && movies.length === 0? 
-    (<h4 className='error__message'>No matches in the catalog</h4>): 
-
-    (
-      <MovieList movies={movies} 
-      setFavorites={setFavorites} 
-      toggleFavorite={toggleFavorite}
-      favorites={favorites}
+      <Route 
+        path="/movie-details"
+        element={<MovieDetails movies={movies} />}
       />
-    )}
-
-    <Favorites favorites={favorites}/>
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
