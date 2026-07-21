@@ -33,7 +33,6 @@ function App() {
 
   useEffect(() => {
     const storedFavorites = localStorage.getItem("favorites");
-    console.log("Stored favorites:", storedFavorites);
     if (storedFavorites) {
       setFavorites(JSON.parse(storedFavorites));
     }
@@ -42,7 +41,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("saving favorites:", favorites);
     if (!favoritesLoaded) return;
 
     localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -96,7 +94,7 @@ function App() {
       />
 
       <Route 
-        path="/movie-details"
+        path="/movie/:id"
         element={<MovieDetails movies={movies} />}
       />
       </Routes>
