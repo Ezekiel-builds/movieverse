@@ -1,0 +1,45 @@
+.movie__details {
+    padding: 16px 20px;
+    margin-top: 12px;
+}
+
+.movie__details-title {
+    background-color: #ffff;
+    padding: 16px 12px;
+    border: 1px solid #1A1C1B;
+}
+
+.movie__details-eyebrow {
+    color: #004AC6;
+    word-spacing: 4px;
+}
+
+.movie__details-text {
+    font-size: 3rem;
+    word-spacing: -2.5px;
+}
+
+.synopsis__container {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+ .movie__poster-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.production__companies-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.production__companies-logo .logo__img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
