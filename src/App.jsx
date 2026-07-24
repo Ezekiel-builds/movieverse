@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import FavoritesPage from "./Pages/FavoritesPage";
 import MovieDetails from "./Pages/MovieDetails";
+import MovieTrailer from "./Pages/MovieTrailer";
 import { useState, useEffect } from "react";
 import "./App.css";
 
@@ -97,6 +98,12 @@ function App() {
         path="/movie/:id"
         element={<MovieDetails movies={movies} />}
       />
+
+       <Route 
+        path="/movietrailer"
+        element={<MovieTrailer />}
+      />  
+
       </Routes>
     </>
   );

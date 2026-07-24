@@ -1,6 +1,8 @@
+import { Link } from 'react-router';
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
+import MovieTrailer from './MovieTrailer';
 import "./MovieDetails.css";
 
 function MovieDetails() {
@@ -30,7 +32,7 @@ function MovieDetails() {
       setCasts(castsobj);
 
       const trailerObj = data.videos?.results?.find(
-        (video) => video.type === "Trailer" && video.site === "YouTube",
+        (video) => video.site === "YouTube",
       );
       setTrailerKey(trailerObj ? trailerObj.key : null);
 
@@ -52,6 +54,8 @@ function MovieDetails() {
     <>
       <Header />
 
+      {console.log(movie)}
+
       <div className="movie__details">
         {/* HEADER / TITLE SECTION */}
         <div className="movie__details-title">
@@ -66,31 +70,35 @@ function MovieDetails() {
           
           {/* COLUMN 1: POSTER & TRAILER BTN */}
           <div className="movie__details-synopsis">
-            <div className="movie__poster">
-              <div className="movie__poster-card">
-                <img
-                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                  alt={movie.title}
-                />
-              </div>
 
-              <div className="movie__details-meta">
-                <h4 className="movie-title">{movie.title}</h4>
-                <p className="movie__tagline">{movie.tagline}</p>
-              </div>
-            </div>
+           <div className="movie__poster">
+                <div className="movie__poster-content">
+                    <div className="movie__poster-card">
+                            <img
+                            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                            alt={movie.title}
+                            />
+                    </div>
 
-            <div className="movie__details-btn">
-              <button className="trailer__btn">
-                <i className="fi fi-rr-play"></i> WATCH TRAILER
-              </button>
-            </div>
+                    <div className="movie__details-meta">
+                        <h4 className="movie__title">{movie.title}</h4>
+                        <p className="movie__tagline">Tagline: {movie.tagline}</p>
+                    </div>
+                </div>
+
+                 <div className="movie__details-btn">
+                    <Link to="/movietrailer" className="trailer__btn">
+                        <i className="fi fi-rr-play"></i> WATCH TRAILER
+                    </Link>
+                 </div>
+            </div> 
+           
           </div>
 
           {/* COLUMN 2: ABSTRACT, GENRES, STANDING */}
           <div className="movie__details-abstract">
             <h4 className="movie__abstract-header">
-              <i className="fi fi-rr-document"></i> ABSTRACT / SYNOPSIS
+              <i className="fi fi-rr-document movie__abstract-icon"></i> ABSTRACT / SYNOPSIS
             </h4>
 
             <div className="movie__overview">
@@ -99,7 +107,7 @@ function MovieDetails() {
 
             <div className="movie__genre">
               <h4 className="movie__tags-header">
-                <i className="fi fi-rr-brand"></i> CINEMATIC TAGS
+                <i className="fi fi-rr-brand movie__tags-icon"></i> CINEMATIC TAGS
               </h4>
 
               <div className="movie__tags">
@@ -112,20 +120,18 @@ function MovieDetails() {
 
               <div className="movie__standing">
                 <div className="movie__standing-score">
-                  <div className="movie__score-eyebrow">
-                    <small className="movie__score-text">SCORE</small>
-                  </div>
+                    <small className="movie__score-eyebrow">SCORE</small>
+
                   <div className="movie__score-value">
-                    <h4>{movie.vote_average?.toFixed(1)}</h4>
-                    <span>/10</span>
+                    <h4 className='movie__core-value'>{movie.vote_average?.toFixed(1)}</h4>
+                    <span className='movie__cut-off'>/10</span>
                   </div>
                 </div>
 
                 <div className="movie__popularity">
-                  <div className="movie__popularity-eyebrow">
-                    <small className="movie__popularity-text">POPULARITY</small>
-                  </div>
-                  <p>{Math.round(movie.vote_average * 10)}%</p>
+                    <small className="movie__popularity-eyebrow">POPULARITY</small>
+              
+                  <p className='movie__popularity-value'>{Math.round(movie.vote_average * 10)}%</p>
                 </div>
               </div>
             </div>
@@ -134,7 +140,7 @@ function MovieDetails() {
           {/* COLUMN 3: METRICS, CAST, PROD COMPANIES */}
           <div className="movie__metrics">
             <h4 className="movie__metrics-header">
-              <i className="fi fi-rr-chart-histogram"></i> MOVIE_METRICS
+              <i className="fi fi-rr-chart-histogram movie__metrics-icon"></i> MOVIE_METRICS
             </h4>
 
             <div className="movie__director">
@@ -142,7 +148,7 @@ function MovieDetails() {
               <p className="movie__director-name">{director}</p>
             </div>
 
-            <div className="movie__realease-date">
+            <div className="movie__release-date">
               <small className="release__date-eyebrow">RELEASE DATE</small>
               <p className="release__date">{movie.release_date}</p>
             </div>
@@ -154,7 +160,7 @@ function MovieDetails() {
 
             <div className="movie__casts">
               <small className="movie__casts-eyebrow">PRIMARY CAST</small>
-              <div className="movie__cast-container">
+             
                 {casts.map((cast) => (
                   <div key={cast.id} className="movie__cast-item">
                     <p className="movie__cast-name">{cast.name}</p>
@@ -163,7 +169,7 @@ function MovieDetails() {
                     </p>
                   </div>
                 ))}
-              </div>
+              
             </div>
 
             <div className="movie__production-companies">
@@ -188,6 +194,9 @@ function MovieDetails() {
           </div>
 
         </div> {/* END OF .synopsis__container */}
+
+        <MovieTrailer traikerKey={trailerKey} />
+
       </div> {/* END OF .movie__details */}    </>
   );
 }
